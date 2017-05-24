@@ -1,0 +1,1 @@
+This is a full copy of ZygorGuides.com Elder Scrolls Online guide add-on. The License has been removed, so you will need to attain a valid Licence.lua file and drop it into the ZygorGuidesViewer folder in order for it to load the guides. There is no gold data included either. This is for those who want an alternative to the official client to update their ZygorGuides add-on.
