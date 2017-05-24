@@ -422,7 +422,7 @@ function Guide:AdvertiseWithPopup(nodelay)
 		ZGV.AdvertisePopup = popup
 	end
 
-	popup:SetText(L['static_nextguide'],self.title_short)
+	popup:SetText(L['static_nextguide'],self.title_short,L['static_nextguide_anyzone'])
 	popup.guide=self
 
 	ZGV.pause = true  -- to avoid a loop of "step complete" clicks.

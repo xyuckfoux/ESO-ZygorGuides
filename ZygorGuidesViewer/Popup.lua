@@ -140,8 +140,18 @@ function Popup:New(name,ptype)
 		:SetHeight(0)
 	.__END
 
+	-- This text hides unless needed, too
+	popup.text3 = CHAIN(ui:Create("Label",popup,name.."_SecText2",ZGV.db.profile.fontsize))	-- TODO make font size dynamically
+		:SetPoint(TOP,popup.text2,BOTTOM,0,0)
+		:SetHorizontalAlignment(TEXT_ALIGN_CENTER)
+		:SetWidth(TEXT_MAX_WIDTH)
+		--:SetCanWrap(true)
+		:SetText("")
+		:SetHeight(0)
+	.__END
+
 	popup.declinebutton = CHAIN(ui:Create("Button",popup,name.."_Decline"))
-		:SetPoint(TOPLEFT,popup.text2,BOTTOM,5,BUT_Y_OFFSET)
+		:SetPoint(TOPLEFT,popup.text3,BOTTOM,5,BUT_Y_OFFSET)
 		:SetText(L['static_decline'])
 		:SetFontSize(ZGV.db.profile.fontsize,true)		-- TODO change size dynamically?
 		:SetHandler("OnClicked",function(me)
@@ -151,7 +161,7 @@ function Popup:New(name,ptype)
 	 .__END
 
 	 popup.acceptbutton = CHAIN(ui:Create("Button",popup,name.."_Accept"))
-		:SetPoint(TOPRIGHT,popup.text2,BOTTOM,-5,BUT_Y_OFFSET)
+		:SetPoint(TOPRIGHT,popup.text3,BOTTOM,-5,BUT_Y_OFFSET)
 		:SetText(L['static_accept'])
 		:SetFontSize(ZGV.db.profile.fontsize,true)	-- TODO change size dynamically?
 		:SetHandler("OnClicked",function(me)
@@ -198,7 +208,7 @@ function Popup:Show() --Overwrite show... !!!! Real show is saved in SavedShow
 	ZGV.PopupHandler:QueuePush(self)
 end
 
-function Popup:SetText(text,text2)
+function Popup:SetText(text,text2,text3)
 	self.text:SetText(text or "")
 
 	-- Only show text 2 if it is needed
@@ -209,8 +219,20 @@ function Popup:SetText(text,text2)
 			:Show()
 	else
 		CHAIN(self.text2)
-		:SetHeight(1)
-		:Hide()
+			:SetHeight(1)
+			:Hide()
+	end
+
+	-- Only show text 3 if it is needed
+	if text3 then
+		CHAIN(self.text3)
+			:SetText(text3)
+			:SetCanWrap(true)
+			:Show()
+	else
+		CHAIN(self.text3)
+			:SetHeight(1)
+			:Hide()
 	end
 end
 

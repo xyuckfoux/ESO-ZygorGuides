@@ -254,6 +254,31 @@ function ZGV:Startup()
 	self.loading = ""
 	self.initialized = true
 
+	ZGV:RegisterTipDialog()
+
+	ZGV:ShowTips()
+
+end
+
+function ZGV:RegisterTipDialog()
+	ZO_Dialogs_RegisterCustomDialog("ZYGOR_TIP",{
+		title = { text = L['tip_header'] },
+		mainText = { text = "<<1>>", },
+		buttons = {
+			{
+				text = SI_DIALOG_YES,
+				callback = function(dialog)
+					if dialog.data.callback_yes then dialog.data.callback_yes() end
+				end
+			},
+			{
+				text = SI_DIALOG_NO,
+				callback = function(dialog)
+					if dialog.data.callback_no then dialog.data.callback_no() end
+				end
+			}
+		},
+	})
 end
 
 function ZGV:GetVersion()
@@ -261,5 +286,43 @@ function ZGV:GetVersion()
 	if title then
 		ZGV.version = title:match("v(%d+%.%d+%..*)")
 		return ZGV.version
+	end
+end
+
+function ZGV:ResetTips()
+	self.db.profile.tipshown={}
+end
+
+local tips = {'keybind'}
+function ZGV:ShowTips()
+	self.db.profile.tipshown = self.db.profile.tipshown or {}
+	for i,tip in ipairs(tips) do
+		if not self.db.profile.tipshown[tip] then
+			self:ShowTip(tip)
+			self.db.profile.tipshown[tip]=true
+			return
+		end
+	end
+end
+
+function ZGV:ShowKeybinds()
+	SCENE_MANAGER:Show("gameMenuInGame")
+	for i,child in ipairs(ZO_GameMenu_InGame.gameMenu.navigationTree.rootNode.children) do
+		if child.data and child.data.name=="Controls" then
+			ZO_GameMenu_InGame.gameMenu.navigationTree:SelectNode(child.children[1],false)
+			break
+		end
+	end
+	for i,data in ipairs(ZO_KeybindingsList.data) do
+		if data.data and data.data.categoryName=="Zygor Guides Viewer" then
+			ZO_KeybindingsListScrollBar:SetValue(data.top-20)
+			break
+		end
+	end
+end
+
+function ZGV:ShowTip(what)
+	if what=="keybind" then
+		ZO_Dialogs_ShowDialog("ZYGOR_TIP",{callback_yes=function() ZGV:ShowKeybinds() end},{mainTextParams={L['tip_keybind']}})
 	end
 end

@@ -205,6 +205,7 @@ ZygorGuidesViewer_L("Main", "enUS", function() local f = {
 	['static_thesesetting']	= "These Settings",
 
 	['static_nextguide'] = "You're now ready to proceed to:\n",
+	['static_nextguide_anyzone'] = "This is the recommended next zone. However, since ESO has no zone level restrictions anymore, you're free to visit any other zone and load a guide for it manually.",
 	['static_badguide'] = "The selected guide:\n|cffee00%s|r\n is |cffbbaaimproper|r for your character.\n|cff6644%s|r\n\nDo you really want to load it?",
 	["static_endguide"] = "You've reached the end of the current guide.",
 	["static_help"] = "You can set keybindings in Esc-Controls-Keybindings.\n\nPlease visit |cfe6100www.zygorguides.com|r if you need additional assistance.",
@@ -218,6 +219,9 @@ ZygorGuidesViewer_L("Main", "enUS", function() local f = {
 
 	-- MINIMAP BUTTON
 	["minimap_tooltip"] = COLOR_TIP_MOUSE.."Click|r to toggle guide window\n"..COLOR_TIP_MOUSE.."Right-click|r to configure\n",
+
+	['tip_header'] = "Zygor Guides Tips",
+	['tip_keybind'] = "Did you know you can bind keys to control the Zygor Guides Viewer?\n\nIt's far easier to navigate between steps by pressing keys, rather than have to click the buttons with your mouse.\n\nWould you like to set up your keybinds now?",
 
 
 	}
